@@ -1,9 +1,20 @@
 import Image from "next/image";
 import logo from "../../public/images/ivoryhaus-logo.png";
 import { BackgroundVideo } from "@/components/Home";
-import { FaSpotify, FaYoutube, FaApple, FaAmazon } from "react-icons/fa6";
+import {
+  FaSpotify,
+  FaYoutube,
+  FaApple,
+  FaAmazon,
+  FaBandcamp,
+} from "react-icons/fa6";
 
 const streamingLinks = [
+  {
+    icon: FaBandcamp,
+    href: "https://ivoryhaus.bandcamp.com/",
+    ariaLabel: "Listen to ivoryHAUS on Bandcamp",
+  },
   {
     icon: FaSpotify,
     href: "https://open.spotify.com/artist/4RPZ6dqa0oJOuaSCEqDmP8?si=SHczDfwTQQSOOPZeg1bh5g",
@@ -35,15 +46,15 @@ export default function Home() {
           <Image
             src={logo}
             alt="ivoryhaus logo"
-            className="not-dark:invert-100"
+            className="not-dark:invert-100 opacity-70 "
           />
         </div>
-        <ul className="flex gap-4 items-center">
+        <ul className="flex gap-2 xs:gap-4 lg:gap-8 items-center transition-all duration-300">
           {streamingLinks.map((link) => {
             return (
               <li key={link.href}>
                 <a href={link.href} aria-label={link.ariaLabel}>
-                  <link.icon className="size-10 sm:size-12 md:size-14 lg:size-16 dark:text-white hover:opacity-60" />
+                  <link.icon className="transition-all duration-300 size-8 xs:size-10 sm:size-12 md:size-14 dark:text-white hover:opacity-90 opacity-70" />
                 </a>
               </li>
             );
