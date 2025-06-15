@@ -8,10 +8,18 @@ import { FileOutput } from "lucide-react";
 import IconHeader from "../ui/IconHeader";
 import NumberInput from "../ui/NumberInput";
 import ToggleSwitch from "../ui/ToggleSwitch";
+import Button from "../ui/Button";
 
 export default function ExportSection() {
   const [duration, setDuration] = useState<number>(0);
   const [isWav, setIsWav] = useState<boolean>(false);
+
+  function downloadButtonHandler() {
+    console.log({
+      isWav: isWav,
+      duration: duration,
+    });
+  }
 
   return (
     <section className="flex flex-col gap-4">
@@ -36,6 +44,7 @@ export default function ExportSection() {
         <label className="label-medium text-primary-200">FILE TYPE</label>
         <ToggleSwitch isWav={isWav} setIsWav={setIsWav} />
       </div>
+      <Button onClick={() => downloadButtonHandler()}>Download</Button>
     </section>
   );
 }
