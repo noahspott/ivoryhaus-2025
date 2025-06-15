@@ -2,6 +2,7 @@ import Image from "next/image";
 import logo from "@/public/images/ivoryhaus-logo.png";
 import ExportSection from "./ExportSection";
 import PresetsSection from "./PresetsSection";
+import Tooltip from "./Tooltip";
 
 export default function Menu() {
   return (
@@ -11,6 +12,7 @@ export default function Menu() {
       <div className="flex flex-col gap-[60px]">
         <ExportSection />
         <PresetsSection />
+        <Tooltip />
       </div>
     </div>
   );
