@@ -12,7 +12,7 @@ export default function ToggleSwitch({
   ...rest
 }: ToggleSwitchProps) {
   return (
-    <label className="h-10 border border-primary-900 p-1 grid grid-cols-2 place-items-center">
+    <label className="h-10 border border-primary-900 p-1 grid grid-cols-2 hover:cursor-pointer">
       <input
         className="sr-only"
         type="checkbox"
@@ -22,7 +22,17 @@ export default function ToggleSwitch({
       />
       <span
         className={clsx(
-          "text-primary-50 label-large w-full h-full text-center select-none flex items-center justify-center",
+          "text-primary-50 label-large w-full h-full text-center select-none flex items-center justify-center transition-colors duration-200",
+          {
+            "bg-primary-900": !isWav,
+          }
+        )}
+      >
+        MP3
+      </span>
+      <span
+        className={clsx(
+          "text-primary-50 label-large w-full h-full text-center select-none flex items-center justify-center transition-colors duration-200",
           {
             "bg-primary-900": isWav,
             "": !isWav,
@@ -30,16 +40,6 @@ export default function ToggleSwitch({
         )}
       >
         WAV
-      </span>
-      <span
-        className={clsx(
-          "text-primary-50 label-large w-full h-full text-center select-none flex items-center justify-center",
-          {
-            "bg-primary-900": !isWav,
-          }
-        )}
-      >
-        MP3
       </span>
     </label>
   );
