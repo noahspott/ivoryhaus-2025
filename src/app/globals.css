@@ -2,6 +2,46 @@
 
 @theme {
   --breakpoint-xs: 30rem;
+
+  --color-primary-50: #f3f4fa;
+  --color-primary-100: #dfe2f2;
+  --color-primary-200: #c2c7e5;
+  --color-primary-300: #a4abda;
+  --color-primary-400: #7d89c8;
+  --color-primary-500: #5f6db4;
+  --color-primary-600: #4c5994;
+  --color-primary-700: #3a4574;
+  --color-primary-800: #283054;
+  --color-primary-900: #1a1f39;
+  --color-primary-950: #101224;
+}
+
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-1 ring-primary-300;
+  }
+}
+
+@layer utilities {
+  .title-small-emphasized {
+    @apply text-sm font-semibold tracking-[0.1px] leading-5;
+  }
+
+  .title-medium {
+    @apply text-base tracking-[0.15px] leading-6 font-medium;
+  }
+
+  .headline-small {
+    @apply text-2xl leading-8 tracking-normal font-normal;
+  }
+
+  .label-medium {
+    @apply text-xs leading-4 tracking-[0.5px] font-medium;
+  }
+
+  .label-large {
+    @apply text-sm tracking-[0.1px] leading-5 font-medium;
+  }
 }
 
 body {

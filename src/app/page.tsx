@@ -1,6 +1,6 @@
 import Image from "next/image";
 import logo from "../../public/images/ivoryhaus-logo.png";
-import { BackgroundVideo } from "@/components/Home";
+import { BackgroundVideo } from "@/src/components/Home/";
 import {
   FaSpotify,
   FaYoutube,
