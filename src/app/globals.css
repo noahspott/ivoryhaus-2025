@@ -26,7 +26,6 @@
   .title-small-emphasized {
     @apply text-sm font-semibold tracking-[0.1px] leading-5;
   }
-
   .title-medium {
     @apply text-base tracking-[0.15px] leading-6 font-medium;
   }
@@ -38,9 +37,12 @@
   .label-medium {
     @apply text-xs leading-4 tracking-[0.5px] font-medium;
   }
-
   .label-large {
     @apply text-sm tracking-[0.1px] leading-5 font-medium;
+  }
+
+  .body-medium {
+    @apply text-sm leading-5 tracking-[0.25px] font-normal;
   }
 }
 
