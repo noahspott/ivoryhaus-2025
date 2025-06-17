@@ -10,11 +10,11 @@ const roboto = Roboto({
 export default function Page() {
   return (
     <main
-      className={`relative ${roboto.className} bg-gradient-to-b from-primary-900 to-[#49569f] min-h-screen`}
+      className={`${roboto.className} relative bg-gradient-to-b from-primary-900 to-[#49569f] min-h-screen`}
     >
       <BackgroundVideo />
-      <div className="relative flex z-10">
-        <Menu />
+      <div className="relative flex z-10 h-full">
+        <Menu className="h-screen" />
         <Synth />
       </div>
     </main>
