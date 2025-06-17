@@ -49,7 +49,7 @@ export default function WaveformSelector() {
   }
 
   return (
-    <section className="bg-primary-900 p-3 flex flex-col">
+    <section className="synth-module p-3 flex flex-col min-w-2xs">
       <IconHeader Icon={Waves} variant="MEDIUM">
         Waveform
       </IconHeader>
@@ -58,9 +58,9 @@ export default function WaveformSelector() {
           className="hover:cursor-pointer active:scale-95"
           onClick={() => handleClick("LEFT")}
         >
-          <LucideChevronLeft className="text-primary-50 p-1 bg-primary-800 border border-primary-700 rounded-full" />
+          <LucideChevronLeft className="text-primary-50 p-1.5 bg-primary-800 border border-primary-700 rounded-full size-8" />
         </button>
-        <div className="p-6 border border-primary-800 w-full">
+        <div className="p-6 border border-primary-800 h-[95px] w-[176px]">
           <Image
             src={waveforms[currentWaveformIndex].image}
             className="w-[128px] h-[47px]"
@@ -71,7 +71,7 @@ export default function WaveformSelector() {
           className="hover:cursor-pointer active:scale-95"
           onClick={() => handleClick("RIGHT")}
         >
-          <LucideChevronRight className="text-primary-50 p-1 bg-primary-800 border border-primary-700 rounded-full" />
+          <LucideChevronRight className="text-primary-50 p-1.5 bg-primary-800 border border-primary-700 rounded-full size-8" />
         </button>
       </div>
     </section>
