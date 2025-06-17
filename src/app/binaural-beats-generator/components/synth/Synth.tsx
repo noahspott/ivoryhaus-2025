@@ -2,6 +2,7 @@ import clsx from "clsx";
 import Header from "./Header";
 import Visualizer from "./Visualizer";
 import WaveformSelector from "./WaveformSelector";
+import PitchSection from "./pitch-section/PitchSection";
 
 export default function Synth({ className }: { className?: string }) {
   return (
@@ -10,8 +11,9 @@ export default function Synth({ className }: { className?: string }) {
     >
       <Header />
       <Visualizer className="h-[161px]" />
-      <div className="grid grid-cols-3 gap-3">
+      <div className="flex flex-col lg:flex-row gap-3">
         <WaveformSelector />
+        <PitchSection className="w-xl" />
       </div>
     </div>
   );

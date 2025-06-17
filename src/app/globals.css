@@ -29,6 +29,9 @@
   .title-medium {
     @apply text-base tracking-[0.15px] leading-6 font-medium;
   }
+  .title-medium-emphasized {
+    @apply text-base leading-6 tracking-[0.15px] font-semibold;
+  }
 
   .headline-small {
     @apply text-2xl leading-8 tracking-normal font-normal;
@@ -37,6 +40,7 @@
   .label-medium {
     @apply text-xs leading-4 tracking-[0.5px] font-medium;
   }
+
   .label-large {
     @apply text-sm tracking-[0.1px] leading-5 font-medium;
   }
