@@ -5,6 +5,9 @@ The app will let users generate binaural beats with adjustable musical pitch, bi
 
 This project is part of my personal goal to grow as a UI/UX-focused Frontend Developer working with React, TypeScript, and Tailwind CSS.
 
+![Design mockup macbook](public/screenshots/mockup-macbook-1000px.png)
+![Design mockup mobile](public/screenshots/mockup-mobile-1000px.png)
+
 ## Project Purpose
 
 I’m using this project to push myself in:
