@@ -11,9 +11,9 @@ export default function Synth({ className }: { className?: string }) {
     >
       <Header />
       <Visualizer className="h-[161px]" />
-      <div className="flex gap-3">
+      <div className="flex flex-col lg:flex-row gap-3">
         <WaveformSelector />
-        <PitchSection />
+        <PitchSection className="w-xl" />
       </div>
     </div>
   );
