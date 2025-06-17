@@ -6,7 +6,7 @@ import WaveformSelector from "./WaveformSelector";
 export default function Synth({ className }: { className?: string }) {
   return (
     <div
-      className={clsx("bg-primary-950 m-6 p-3 select-none w-full", className)}
+      className={clsx("synth-container m-6 p-3 select-none w-full", className)}
     >
       <Header />
       <Visualizer className="h-[161px]" />
