@@ -15,7 +15,7 @@ export default function PitchButton({
     <button
       onClick={() => handleButtonClick()}
       className={clsx(
-        "text-primary-50 hover:cursor-pointer rounded-full label-medium-emphasized text-center size-[50px] flex items-center justify-center",
+        "text-primary-50 hover:cursor-pointer rounded-full title-medium-emphasized text-center size-[50px] flex items-center justify-center",
         className,
         {
           "bg-primary-500": isSelected,
