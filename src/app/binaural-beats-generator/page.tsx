@@ -1,5 +1,6 @@
 import { Roboto } from "next/font/google";
 import { Menu, Synth } from "./components/";
+import { BackgroundVideo } from "@/src/components/Home";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -9,10 +10,13 @@ const roboto = Roboto({
 export default function Page() {
   return (
     <main
-      className={`flex ${roboto.className} bg-gradient-to-b from-primary-900 to-[#49569f] min-h-screen`}
+      className={`${roboto.className} relative bg-gradient-to-b from-primary-900 to-[#49569f] min-h-screen`}
     >
-      <Menu />
-      <Synth />
+      <BackgroundVideo />
+      <div className="relative flex z-10 h-full">
+        <Menu className="h-screen" />
+        <Synth />
+      </div>
     </main>
   );
 }

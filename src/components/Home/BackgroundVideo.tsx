@@ -1,8 +1,12 @@
-// components/BackgroundVideo.tsx
-export default function BackgroundVideo() {
+import clsx from "clsx";
+
+export default function BackgroundVideo({ className }: { className?: string }) {
   return (
     <video
-      className="absolute inset-0 w-full h-full object-cover dark:opacity-5 opacity-15"
+      className={clsx(
+        `absolute inset-0 w-full h-full object-cover dark:opacity-5 opacity-15`,
+        className
+      )}
       autoPlay
       muted
       loop

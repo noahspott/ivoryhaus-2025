@@ -44,6 +44,13 @@
   .body-medium {
     @apply text-sm leading-5 tracking-[0.25px] font-normal;
   }
+
+  .synth-module {
+    @apply border border-primary-800 bg-primary-900;
+  }
+  .synth-container {
+    @apply border border-primary-900 bg-primary-950;
+  }
 }
 
 body {
