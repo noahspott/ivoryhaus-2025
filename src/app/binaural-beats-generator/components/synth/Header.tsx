@@ -5,7 +5,7 @@ import AudioControls from "./AudioControls";
 
 export default function Header() {
   return (
-    <section className="p-3 bg-primary-900 flex items-center justify-between">
+    <section className="p-3 synth-module flex items-center justify-between">
       <IconHeader Icon={Target} variant="LARGE">
         Binaural Beats Generator
       </IconHeader>
