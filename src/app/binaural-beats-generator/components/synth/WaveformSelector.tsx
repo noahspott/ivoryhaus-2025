@@ -49,7 +49,7 @@ export default function WaveformSelector() {
   }
 
   return (
-    <section className="synth-module p-3 flex flex-col min-w-2xs">
+    <section className="synth-module flex flex-col min-w-2xs">
       <IconHeader Icon={Waves} variant="MEDIUM">
         Waveform
       </IconHeader>

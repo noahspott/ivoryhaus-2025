@@ -50,7 +50,7 @@
   }
 
   .synth-module {
-    @apply border border-primary-800 bg-primary-900;
+    @apply border border-primary-800 bg-primary-900 p-3;
   }
   .synth-container {
     @apply border border-primary-900 bg-primary-950;
