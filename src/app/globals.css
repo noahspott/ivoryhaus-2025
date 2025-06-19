@@ -36,6 +36,9 @@
   .headline-small {
     @apply text-2xl leading-8 tracking-normal font-normal;
   }
+  .headline-large {
+    @apply text-[32px] leading-10 tracking-normal font-normal;
+  }
 
   .label-medium {
     @apply text-xs leading-4 tracking-[0.5px] font-medium;

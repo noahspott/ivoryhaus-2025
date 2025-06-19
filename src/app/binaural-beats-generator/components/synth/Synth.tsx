@@ -15,7 +15,7 @@ export default function Synth({ className }: { className?: string }) {
       <div className="flex flex-col lg:flex-row gap-3">
         <WaveformSelector />
         <PitchSection className="w-xl" />
-        <FineTuningSection className="" />
+        <FineTuningSection className="w-[312px]" />
       </div>
     </div>
   );
