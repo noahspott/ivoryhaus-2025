@@ -3,6 +3,7 @@ import Header from "./Header";
 import Visualizer from "./Visualizer";
 import WaveformSelector from "./WaveformSelector";
 import PitchSection from "./pitch-section/PitchSection";
+import FineTuningSection from "./fine-tuning-section/FineTuningSection";
 
 export default function Synth({ className }: { className?: string }) {
   return (
@@ -14,6 +15,7 @@ export default function Synth({ className }: { className?: string }) {
       <div className="flex flex-col lg:flex-row gap-3">
         <WaveformSelector />
         <PitchSection className="w-xl" />
+        <FineTuningSection className="w-[312px]" />
       </div>
     </div>
   );

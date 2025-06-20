@@ -9,7 +9,7 @@ import OctaveSelector from "./OctaveSelector";
 
 export default function PitchSection({ className }: { className?: string }) {
   return (
-    <section className={clsx("p-3 synth-module", className)}>
+    <section className={clsx("synth-module", className)}>
       <IconHeader Icon={Music2Icon} variant="MEDIUM">
         Center Pitch
       </IconHeader>
