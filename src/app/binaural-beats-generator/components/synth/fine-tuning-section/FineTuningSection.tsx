@@ -10,8 +10,23 @@ import { AudioLines } from "lucide-react";
 import FineTuningKnob from "./FineTuningKnob";
 
 function getFrequencyLabel(frequency: number): string {
-  console.log(frequency);
-  return "Standard";
+  const tuningLabels = new Map([
+    [432, "Healing"],
+    [440, "Standard"],
+    [444, "Angel"],
+    [446.2, "Baroque"],
+    [448, "Bright"],
+    [449, "Bright"],
+    [450, "Bright"],
+  ]);
+
+  let label = tuningLabels.get(Number(frequency.toFixed(0)));
+
+  if (label === undefined) {
+    label = frequency < 440 ? "Flat" : "Sharp";
+  }
+
+  return label;
 }
 
 export default function FineTuningSection({
@@ -26,9 +41,11 @@ export default function FineTuningSection({
         Fine Tuning
       </IconHeader>
       <div className="flex items-center justify-between px-12">
-        <FineTuningKnob />
+        <FineTuningKnob frequency={frequency} setFrequency={setFrequency} />
         <div className="text-right">
-          <p className="text-primary-50 headline-large">{frequency}</p>
+          <p className="text-primary-50 headline-large">
+            {frequency.toFixed(0)}
+          </p>
           <p className="text-primary-200 title-medium">
             {getFrequencyLabel(frequency)}
           </p>
