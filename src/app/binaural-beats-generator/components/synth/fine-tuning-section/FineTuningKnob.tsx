@@ -1,8 +1,9 @@
 "use client";
 
 // Lib
-import { SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
 import { motion, useTransform, useMotionValue } from "motion/react";
+import { useSynthStore } from "@/src/providers/synth-store-provider";
 
 // Consts
 const MIN_FREQUENCY = 415;
@@ -17,22 +18,17 @@ const CIRCLE_CENTER = {
   y: TRACK_RADIUS,
 };
 
-export default function FineTuningKnob({
-  frequency,
-  setFrequency,
-}: {
-  frequency: number;
-  setFrequency: React.Dispatch<SetStateAction<number>>;
-}) {
-  const motionFrequency = useMotionValue(frequency);
+export default function FineTuningKnob() {
+  const { a4Freq, updateA4Freq } = useSynthStore((state) => state);
+  const motionFrequency = useMotionValue(a4Freq);
 
   useEffect(() => {
     const unsubscribe = motionFrequency.on("change", (latest) => {
-      setFrequency(latest);
+      updateA4Freq(latest);
     });
 
     return () => unsubscribe();
-  }, [motionFrequency, setFrequency]);
+  }, [motionFrequency, a4Freq, updateA4Freq]);
 
   const angleDeg = useTransform(
     motionFrequency,
@@ -101,8 +97,8 @@ export default function FineTuningKnob({
         aria-label="Fine tuning knob"
         aria-valuemin={MIN_FREQUENCY}
         aria-valuemax={MAX_FREQUENCY}
-        aria-valuenow={frequency}
-        aria-valuetext={`${frequency} Hz`}
+        aria-valuenow={a4Freq}
+        aria-valuetext={`${a4Freq} Hz`}
         onKeyDown={(e) => {
           handleKeyDown(e);
         }}

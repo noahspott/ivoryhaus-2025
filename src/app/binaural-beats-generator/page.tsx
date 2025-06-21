@@ -1,6 +1,9 @@
+"use client";
+
 import { Roboto } from "next/font/google";
 import { Menu, Synth } from "./components/";
 import { BackgroundVideo } from "@/src/components/Home";
+import { SynthStoreProvider } from "@/src/providers/synth-store-provider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -14,8 +17,10 @@ export default function Page() {
     >
       <BackgroundVideo />
       <div className="relative flex z-10 h-full">
-        <Menu className="h-screen" />
-        <Synth />
+        <SynthStoreProvider>
+          <Menu className="h-screen" />
+          <Synth />
+        </SynthStoreProvider>
       </div>
     </main>
   );
