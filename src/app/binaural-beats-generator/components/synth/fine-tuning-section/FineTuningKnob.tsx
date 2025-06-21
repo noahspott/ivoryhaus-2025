@@ -7,8 +7,8 @@ import { motion, useTransform, useMotionValue } from "motion/react";
 // Consts
 const MIN_FREQUENCY = 415;
 const MAX_FREQUENCY = 446;
-const START_ANGLE = 135;
-const END_ANGLE = 405;
+const START_ANGLE = 115;
+const END_ANGLE = 425;
 const RADIUS = 38;
 const DIAMETER = RADIUS * 2;
 const TRACK_RADIUS = RADIUS - 8;
@@ -24,14 +24,18 @@ export default function FineTuningKnob({
   frequency: number;
   setFrequency: React.Dispatch<SetStateAction<number>>;
 }) {
-  const freqValue = useMotionValue(frequency);
+  const motionFrequency = useMotionValue(frequency);
 
   useEffect(() => {
-    freqValue.set(frequency);
-  }, [frequency, freqValue]);
+    const unsubscribe = motionFrequency.on("change", (latest) => {
+      setFrequency(latest);
+    });
+
+    return () => unsubscribe();
+  }, [motionFrequency, setFrequency]);
 
   const angleDeg = useTransform(
-    freqValue,
+    motionFrequency,
     [MIN_FREQUENCY, MAX_FREQUENCY],
     [START_ANGLE, END_ANGLE]
   );
@@ -58,8 +62,8 @@ export default function FineTuningKnob({
       return;
     }
 
-    setFrequency((prev) =>
-      clamp(prev + stepSize, MIN_FREQUENCY, MAX_FREQUENCY)
+    motionFrequency.set(
+      clamp(motionFrequency.get() + stepSize, MIN_FREQUENCY, MAX_FREQUENCY)
     );
   }
 
@@ -75,13 +79,11 @@ export default function FineTuningKnob({
     const sensitivity = 0.8;
     const freqChange = sensitivity * (delta.x - delta.y);
     const newFreq = clamp(
-      freqValue.get() + freqChange,
+      motionFrequency.get() + freqChange,
       MIN_FREQUENCY,
       MAX_FREQUENCY
     );
-
-    freqValue.set(newFreq);
-    setFrequency(newFreq);
+    motionFrequency.set(newFreq);
   }
 
   return (
@@ -110,7 +112,7 @@ export default function FineTuningKnob({
         dragMomentum={false}
         dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
         dragTransition={{ bounceStiffness: 1000, bounceDamping: 1000 }}
-        onDoubleClick={() => setFrequency(440)}
+        onDoubleClick={() => motionFrequency.set(440)}
       >
         <motion.div
           className="bg-indigo-50 size-1.5 absolute rounded-full"
