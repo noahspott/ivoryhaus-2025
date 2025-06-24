@@ -1,9 +1,9 @@
 "use client";
 
 // Lib
-import { useState } from "react";
 import { get } from "@tonaljs/note";
 import clsx from "clsx";
+import { useSynthStore } from "@/src/providers/synth-store-provider";
 
 // Components
 import PitchButton from "./PitchButton";
@@ -27,18 +27,21 @@ const NOTE_NAMES = [
 ];
 
 export default function PitchSelector() {
-  const [selectedNote, setSelectedNote] = useState<NoteType>(get("C4"));
+  const { note, updateNote } = useSynthStore((store) => store);
 
-  function handlePitchButtonClick(noteName: string) {
-    console.log(`${noteName} selected!`);
-    setSelectedNote(get(noteName));
+  function handlePitchButtonClick(noteName: string, note: NoteType) {
+    const octave = note.oct;
+    const newNoteString = `${noteName}${octave}`;
+    updateNote(get(newNoteString));
+  }
+
+  function isSelected(noteName: string, note: NoteType): boolean {
+    return note.pc === noteName;
   }
 
   return (
     <div className="relative h-[100px]">
       {NOTE_NAMES.map((noteName, index) => {
-        const isSelected = selectedNote.name === noteName;
-
         return (
           <div
             key={noteName}
@@ -51,11 +54,11 @@ export default function PitchSelector() {
             }}
           >
             <PitchButton
-              handleButtonClick={() => handlePitchButtonClick(noteName)}
+              handleButtonClick={() => handlePitchButtonClick(noteName, note)}
               className={clsx({
                 "relative -left-8": noteName.length > 1,
               })}
-              isSelected={isSelected}
+              isSelected={isSelected(noteName, note)}
               noteName={noteName}
             />
           </div>

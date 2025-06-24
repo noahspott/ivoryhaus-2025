@@ -1,51 +1,46 @@
 "use client";
 
 // Lib
-import { useState } from "react";
+import { useSynthStore } from "@/src/providers/synth-store-provider";
 
 // Components
 import { Waves, LucideChevronLeft, LucideChevronRight } from "lucide-react";
 import IconHeader from "../ui/IconHeader";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 // Images
 import sine from "@/public/images/waveforms/sine.svg";
 import square from "@/public/images/waveforms/square.svg";
 import triangle from "@/public/images/waveforms/triangle.svg";
 
-type Waveform = {
-  name: string;
-  image: StaticImageData;
-};
+// Types
+import { Waveform } from "@/src/types/Waveform";
 
-const waveforms: Waveform[] = [
-  {
-    name: "sine",
-    image: sine,
-  },
-  {
-    name: "triangle",
-    image: triangle,
-  },
-  {
-    name: "square",
-    image: square,
-  },
-];
+const waveformImageMap = new Map([
+  [Waveform.Sine, sine],
+  [Waveform.Triangle, triangle],
+  [Waveform.Square, square],
+]);
+
+const waveformValues = Object.values(Waveform);
 
 export default function WaveformSelector() {
-  const [currentWaveformIndex, setCurrentWaveformIndex] = useState<number>(0);
+  const { waveform, updateWaveform } = useSynthStore((state) => state);
 
   function handleClick(direction: "LEFT" | "RIGHT") {
+    let index = waveformValues.findIndex(
+      (waveformVal) => waveformVal === waveform
+    );
+
     if (direction === "LEFT") {
-      setCurrentWaveformIndex(
-        (prev) => (prev - 1 + waveforms.length) % waveforms.length
-      );
+      index = (index - 1 + waveformValues.length) % waveformValues.length;
     }
 
     if (direction === "RIGHT") {
-      setCurrentWaveformIndex((prev) => (prev + 1) % waveforms.length);
+      index = (index + 1 + waveformValues.length) % waveformValues.length;
     }
+
+    updateWaveform(waveformValues[index]);
   }
 
   return (
@@ -62,7 +57,7 @@ export default function WaveformSelector() {
         </button>
         <div className="p-6 border border-primary-800 h-[95px] w-[176px]">
           <Image
-            src={waveforms[currentWaveformIndex].image}
+            src={waveformImageMap.get(waveform)}
             className="w-[128px] h-[47px]"
             alt="Waveform"
           />
