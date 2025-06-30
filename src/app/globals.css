@@ -23,6 +23,13 @@
 }
 
 @layer utilities {
+  .display-large {
+    @apply text-[57px] font-normal tracking-[-0.25px] leading-16;
+  }
+
+  .title-small {
+    @apply text-sm font-normal tracking-[0.1px] leading-5;
+  }
   .title-small-emphasized {
     @apply text-sm font-semibold tracking-[0.1px] leading-5;
   }
