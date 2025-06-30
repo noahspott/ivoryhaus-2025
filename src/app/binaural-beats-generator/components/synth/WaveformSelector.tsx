@@ -2,6 +2,7 @@
 
 // Lib
 import { useSynthStore } from "@/src/providers/synth-store-provider";
+import clsx from "clsx";
 
 // Components
 import { Waves, LucideChevronLeft, LucideChevronRight } from "lucide-react";
@@ -24,7 +25,11 @@ const waveformImageMap = new Map([
 
 const waveformValues = Object.values(Waveform);
 
-export default function WaveformSelector() {
+export default function WaveformSelector({
+  className,
+}: {
+  className?: string;
+}) {
   const { waveform, updateWaveform } = useSynthStore((state) => state);
 
   function handleClick(direction: "LEFT" | "RIGHT") {
@@ -44,11 +49,13 @@ export default function WaveformSelector() {
   }
 
   return (
-    <section className="synth-module flex flex-col min-w-2xs">
+    <section
+      className={clsx("synth-module flex flex-col gap-6 min-w-2xs", className)}
+    >
       <IconHeader Icon={Waves} variant="MEDIUM">
         Waveform
       </IconHeader>
-      <div className="flex gap-3 mt-6 self-center">
+      <div className="flex gap-3 self-center">
         <button
           className="hover:cursor-pointer active:scale-95"
           onClick={() => handleClick("LEFT")}

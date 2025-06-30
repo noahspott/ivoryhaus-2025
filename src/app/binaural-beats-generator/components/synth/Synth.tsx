@@ -4,19 +4,24 @@ import Visualizer from "./Visualizer";
 import WaveformSelector from "./WaveformSelector";
 import PitchSection from "./pitch-section/PitchSection";
 import FineTuningSection from "./fine-tuning-section/FineTuningSection";
+import BinauralBeatSection from "./binaural-beat-section/BinauralBeatSection";
 
 export default function Synth({ className }: { className?: string }) {
   return (
     <div
-      className={clsx("synth-container m-6 p-3 select-none w-full", className)}
+      className={clsx(
+        "synth-container m-6 p-3 select-none grid grid-rows-10 gap-3",
+        className
+      )}
     >
-      <Header />
-      <Visualizer className="h-[161px]" />
-      <div className="flex flex-col lg:flex-row gap-3">
-        <WaveformSelector />
-        <PitchSection className="w-xl" />
-        <FineTuningSection className="w-[312px]" />
+      <Header className="row-span-1" />
+      <Visualizer className="row-span-2" />
+      <div className="grid grid-cols-12 gap-3 row-span-3">
+        <WaveformSelector className="col-span-3" />
+        <PitchSection className="col-span-6" />
+        <FineTuningSection className="col-span-3" />
       </div>
+      <BinauralBeatSection className="row-span-4" />
     </div>
   );
 }

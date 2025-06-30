@@ -41,9 +41,9 @@ export default function FineTuningSection({
       <IconHeader Icon={AudioLines} variant="MEDIUM">
         Fine Tuning
       </IconHeader>
-      <div className="flex items-center justify-between px-12">
-        <FineTuningKnob />
-        <div className="text-right">
+      <div className="grid grid-cols-5 self-center">
+        <FineTuningKnob className="col-span-2" />
+        <div className="text-right col-span-3">
           <p className="text-primary-50 headline-large">{a4Freq.toFixed(0)}</p>
           <p className="text-primary-200 title-medium">
             {getFrequencyLabel(a4Freq)}

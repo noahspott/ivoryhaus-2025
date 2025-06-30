@@ -4,6 +4,7 @@
 import { useEffect } from "react";
 import { motion, useTransform, useMotionValue } from "motion/react";
 import { useSynthStore } from "@/src/providers/synth-store-provider";
+import clsx from "clsx";
 
 // Consts
 const MIN_FREQUENCY = 415;
@@ -18,7 +19,7 @@ const CIRCLE_CENTER = {
   y: TRACK_RADIUS,
 };
 
-export default function FineTuningKnob() {
+export default function FineTuningKnob({ className }: { className?: string }) {
   const { a4Freq, updateA4Freq } = useSynthStore((state) => state);
   const motionFrequency = useMotionValue(a4Freq);
 
@@ -83,7 +84,7 @@ export default function FineTuningKnob() {
   }
 
   return (
-    <div className="relative">
+    <div className={clsx("relative", className)}>
       <motion.div
         className="relative hover:cursor-pointer rounded-full bg-primary-800 border border-primary-700"
         style={{

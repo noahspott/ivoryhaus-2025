@@ -13,13 +13,13 @@ const roboto = Roboto({
 export default function Page() {
   return (
     <main
-      className={`${roboto.className} relative bg-gradient-to-b from-primary-900 to-[#49569f] min-h-screen`}
+      className={`${roboto.className} relative bg-gradient-to-b from-primary-900 to-[#49569f]`}
     >
       <BackgroundVideo />
-      <div className="relative flex z-10 h-full">
+      <div className="relative grid grid-cols-12 z-10">
         <SynthStoreProvider>
-          <Menu className="h-screen" />
-          <Synth />
+          <Menu className="col-span-2 shadow-md" />
+          <Synth className="col-span-10 shadow-xl" />
         </SynthStoreProvider>
       </div>
     </main>

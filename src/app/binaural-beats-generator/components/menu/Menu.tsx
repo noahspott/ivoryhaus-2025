@@ -15,7 +15,7 @@ export default function Menu({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        "max-w-[216px] p-5 flex flex-col bg-primary-950 select-none h-full",
+        "p-5 flex flex-col bg-primary-950 select-none",
         className
       )}
     >
