@@ -1,7 +1,9 @@
 "use client";
 
+// Lib
 import { useState } from "react";
 
+// Components
 import PlayButton from "./PlayButton";
 import VolumeSlider from "./VolumeSlider";
 

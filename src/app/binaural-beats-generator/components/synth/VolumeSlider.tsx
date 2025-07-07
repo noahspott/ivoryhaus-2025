@@ -1,20 +1,34 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, useMotionValue } from "motion/react";
+// Lib
+import { useRef, useEffect } from "react";
+import { motion, useMotionValue, useTransform } from "motion/react";
+import { useSynthStore } from "@/src/providers/synth-store-provider";
+
+// Consts
+const KNOB_WIDTH = 12;
+const TRACK_WIDTH = 120;
+const SCROLLABLE_TRACK_WIDTH = TRACK_WIDTH - KNOB_WIDTH;
 
 export default function VolumeSlider() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [volume, setVolume] = useState<number>(70);
-  const x = useMotionValue(volume);
 
-  const KNOB_WIDTH = 12;
-  const TRACK_WIDTH = 120;
-  const SCROLLABLE_TRACK_WIDTH = TRACK_WIDTH - KNOB_WIDTH;
+  const volume = useSynthStore((state) => state.volume);
+  const updateVolume = useSynthStore((state) => state.updateVolume);
 
+  const motionVolume = useMotionValue(volume);
+
+  const x = useTransform(motionVolume, [0, 1], [0, SCROLLABLE_TRACK_WIDTH]);
+
+  // Updates SynthStore
   useEffect(() => {
-    x.set(volume);
-  }, [volume, x]);
+    const unsubscribe = motionVolume.on("change", (latest) => {
+      const normalized = latest / SCROLLABLE_TRACK_WIDTH;
+      const clamped = Math.max(0, Math.min(1, normalized));
+      updateVolume(clamped);
+    });
+    return () => unsubscribe();
+  }, [motionVolume, updateVolume]);
 
   function handleDrag(event: MouseEvent | PointerEvent | TouchEvent) {
     const track = trackRef.current?.getBoundingClientRect();
@@ -32,7 +46,9 @@ export default function VolumeSlider() {
     const percent = (x / track.width) * SCROLLABLE_TRACK_WIDTH;
     const clamped = Math.max(0, Math.min(SCROLLABLE_TRACK_WIDTH, percent));
 
-    setVolume(clamped);
+    motionVolume.set(clamped);
+
+    console.log("volume: ", volume);
   }
 
   function handleKeyVolumeChange(event: React.KeyboardEvent<HTMLDivElement>) {
@@ -46,9 +62,14 @@ export default function VolumeSlider() {
       division = -division;
     }
 
-    setVolume((prevVol) =>
-      Math.max(0, Math.min(prevVol + division, SCROLLABLE_TRACK_WIDTH))
+    motionVolume.set(
+      Math.max(
+        0,
+        Math.min(motionVolume.get() + division, SCROLLABLE_TRACK_WIDTH)
+      )
     );
+
+    console.log("volume:", volume);
   }
 
   return (

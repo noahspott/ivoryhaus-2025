@@ -8,6 +8,8 @@ export type SynthState = {
   a4Freq: number;
   waveform: Waveform;
   binauralFreq: number;
+  isPlaying: boolean;
+  volume: number;
 };
 
 export type SynthActions = {
@@ -15,6 +17,8 @@ export type SynthActions = {
   updateA4Freq: (newFrequency: number) => void;
   updateWaveform: (newWaveform: Waveform) => void;
   updateBinauralFreq: (newBinauralFreq: number) => void;
+  updateIsPlaying: (newIsPlaying: boolean) => void;
+  updateVolume: (newVolume: number) => void;
 };
 
 export type SynthStore = SynthState & SynthActions;
@@ -24,6 +28,8 @@ export const defaultInitState: SynthState = {
   a4Freq: 440,
   waveform: Waveform.Sine,
   binauralFreq: 20,
+  isPlaying: false,
+  volume: 0.75,
 };
 
 export const createSynthStore = (initState: SynthState = defaultInitState) => {
@@ -34,5 +40,7 @@ export const createSynthStore = (initState: SynthState = defaultInitState) => {
     updateWaveform: (newWaveform) => set(() => ({ waveform: newWaveform })),
     updateBinauralFreq: (newBinauralFreq) =>
       set(() => ({ binauralFreq: newBinauralFreq })),
+    updateIsPlaying: (newIsPlaying) => set(() => ({ isPlaying: newIsPlaying })),
+    updateVolume: (newVolume) => set(() => ({ volume: newVolume })),
   }));
 };
