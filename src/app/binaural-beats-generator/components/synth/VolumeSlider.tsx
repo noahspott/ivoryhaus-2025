@@ -47,8 +47,6 @@ export default function VolumeSlider() {
     const clamped = Math.max(0, Math.min(SCROLLABLE_TRACK_WIDTH, percent));
 
     motionVolume.set(clamped);
-
-    console.log("volume: ", volume);
   }
 
   function handleKeyVolumeChange(event: React.KeyboardEvent<HTMLDivElement>) {
