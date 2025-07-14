@@ -49,26 +49,24 @@ export default function VolumeSlider() {
     motionVolume.set(clamped);
   }
 
-  function handleKeyVolumeChange(event: React.KeyboardEvent<HTMLDivElement>) {
-    const track = trackRef.current?.getBoundingClientRect();
-    if (!track) return;
+  // function handleKeyVolumeChange(event: React.KeyboardEvent<HTMLDivElement>) {
+  //   const track = trackRef.current?.getBoundingClientRect();
+  //   if (!track) return;
 
-    const stepAmount = 20;
-    let division = Math.round(SCROLLABLE_TRACK_WIDTH / stepAmount);
+  //   const stepAmount = 20;
+  //   let division = Math.round(SCROLLABLE_TRACK_WIDTH / stepAmount);
 
-    if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
-      division = -division;
-    }
+  //   if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+  //     division = -division;
+  //   }
 
-    motionVolume.set(
-      Math.max(
-        0,
-        Math.min(motionVolume.get() + division, SCROLLABLE_TRACK_WIDTH)
-      )
-    );
-
-    console.log("volume:", volume);
-  }
+  //   motionVolume.set(
+  //     Math.max(
+  //       0,
+  //       Math.min(motionVolume.get() + division, SCROLLABLE_TRACK_WIDTH)
+  //     )
+  //   );
+  // }
 
   return (
     <div ref={trackRef} className="relative">
@@ -93,9 +91,9 @@ export default function VolumeSlider() {
         onDrag={(e) => {
           handleDrag(e);
         }}
-        onKeyDown={(e) => {
-          handleKeyVolumeChange(e);
-        }}
+        // onKeyDown={(e) => {
+        //   handleKeyVolumeChange(e);
+        // }}
       />
       <motion.div
         id="volume-slider-top"
