@@ -5,8 +5,11 @@ import WaveformSelector from "./WaveformSelector";
 import PitchSection from "./pitch-section/PitchSection";
 import FineTuningSection from "./fine-tuning-section/FineTuningSection";
 import BinauralBeatSection from "./binaural-beat-section/BinauralBeatSection";
+import { useBinauralSynth } from "../../engine/useBinauralSynth";
 
 export default function Synth({ className }: { className?: string }) {
+  useBinauralSynth();
+
   return (
     <div
       className={clsx(

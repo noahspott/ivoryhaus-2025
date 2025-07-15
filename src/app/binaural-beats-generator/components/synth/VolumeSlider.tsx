@@ -73,12 +73,12 @@ export default function VolumeSlider() {
       <motion.div
         id="slider-knob"
         className={`absolute bg-primary-50 rounded-full -top-[5px] hover:cursor-pointer z-20 focus:ring-2 focus:ring-primary-300 active:ring-primary-300`}
-        tabIndex={0}
-        role="slider"
-        aria-valuemin={0}
-        aria-valuemax={SCROLLABLE_TRACK_WIDTH}
-        aria-valuenow={volume}
-        aria-valuetext={`${volume}%`}
+        // tabIndex={0}
+        // role="slider"
+        // aria-valuemin={0}
+        // aria-valuemax={SCROLLABLE_TRACK_WIDTH}
+        // aria-valuenow={volume}
+        // aria-valuetext={`${volume}%`}
         drag="x"
         dragElastic={0}
         dragMomentum={false}
