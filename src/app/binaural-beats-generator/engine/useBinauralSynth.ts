@@ -34,12 +34,12 @@ export function useBinauralSynth() {
 
     const leftOsc = new Tone.Oscillator(
       baseFreq - halfOffset,
-      waveform.toString()
+      waveform.toString() as OscillatorType
     ).connect(leftPan);
 
     const rightOsc = new Tone.Oscillator(
       baseFreq + halfOffset,
-      waveform.toString()
+      waveform.toString() as OscillatorType
     ).connect(rightPan);
 
     leftOscRef.current = leftOsc;
@@ -64,7 +64,7 @@ export function useBinauralSynth() {
       gain.dispose();
       envelope.dispose();
     };
-  }, []); // initialize once
+  }, []);
 
   // Toggle playback
   useEffect(() => {
@@ -80,13 +80,16 @@ export function useBinauralSynth() {
 
   // React to waveform changes
   useEffect(() => {
-    if (leftOscRef.current) leftOscRef.current.type = waveform.toString();
-    if (rightOscRef.current) rightOscRef.current.type = waveform.toString();
+    if (leftOscRef.current)
+      leftOscRef.current.type = waveform.toString() as OscillatorType;
+    if (rightOscRef.current)
+      rightOscRef.current.type = waveform.toString() as OscillatorType;
   }, [waveform]);
 
   // React to volume changes
   useEffect(() => {
-    if (gainRef.current) gainRef.current.gain.rampTo(volume, 0.025);
+    const clampedVolume = Math.min(Math.max(volume, 0), 0.95);
+    if (gainRef.current) gainRef.current.gain.rampTo(clampedVolume, 0.025);
   }, [volume]);
 
   // React to note and binaural frequency changes
