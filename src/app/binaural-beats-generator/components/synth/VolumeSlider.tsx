@@ -78,7 +78,7 @@ export default function VolumeSlider() {
         dragMomentum={false}
         dragConstraints={trackRef}
         style={{
-          x: knobPosition,
+          x: knobPosition.get() - KNOB_WIDTH / 2,
           width: KNOB_WIDTH,
           height: KNOB_WIDTH,
         }}
@@ -93,7 +93,7 @@ export default function VolumeSlider() {
         id="volume-slider-top"
         className="absolute top-0 z-10 left-0 bg-primary-50 rounded-full h-0.5"
         style={{
-          width: knobPosition,
+          width: knobPosition.get(),
         }}
       />
       <div
