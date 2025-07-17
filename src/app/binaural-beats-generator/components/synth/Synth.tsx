@@ -8,7 +8,7 @@ import BinauralBeatSection from "./binaural-beat-section/BinauralBeatSection";
 import { useBinauralSynth } from "../../engine/useBinauralSynth";
 
 export default function Synth({ className }: { className?: string }) {
-  useBinauralSynth();
+  const { leftOsc, rightOsc } = useBinauralSynth();
 
   return (
     <div
@@ -18,7 +18,11 @@ export default function Synth({ className }: { className?: string }) {
       )}
     >
       <Header className="row-span-1" />
-      <Visualizer className="row-span-2" />
+      <Visualizer
+        leftOsc={leftOsc}
+        rightOsc={rightOsc}
+        className="row-span-2"
+      />
       <div className="grid grid-cols-12 gap-3 row-span-3">
         <WaveformSelector className="col-span-3" />
         <PitchSection className="col-span-6" />

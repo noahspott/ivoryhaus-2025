@@ -106,4 +106,9 @@ export function useBinauralSynth() {
     leftOscRef.current.frequency.value = baseFreq - halfOffset;
     rightOscRef.current.frequency.value = baseFreq + halfOffset;
   }, [baseNote, binauralFreq]);
+
+  return {
+    leftOsc: leftOscRef.current,
+    rightOsc: rightOscRef.current,
+  };
 }
