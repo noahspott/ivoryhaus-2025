@@ -1,20 +1,23 @@
-import { useEffect, useRef } from "react";
+// Lib
 import * as Tone from "tone";
+
+// Hooks
+import { useEffect, useRef } from "react";
 import { useSynthStore } from "@/src/providers/synth-store-provider";
 
 export function useBinauralSynth() {
-  const isPlaying = useSynthStore((s) => s.isPlaying);
+  const volume = useSynthStore((s) => s.volume);
   const baseNote = useSynthStore((s) => s.note);
   const waveform = useSynthStore((s) => s.waveform);
+  const isPlaying = useSynthStore((s) => s.isPlaying);
   const binauralFreq = useSynthStore((s) => s.binauralFreq);
-  const volume = useSynthStore((s) => s.volume);
 
-  const leftOscRef = useRef<Tone.Oscillator | null>(null);
-  const rightOscRef = useRef<Tone.Oscillator | null>(null);
+  const gainRef = useRef<Tone.Gain | null>(null);
   const leftPanRef = useRef<Tone.Panner | null>(null);
   const rightPanRef = useRef<Tone.Panner | null>(null);
-  const gainRef = useRef<Tone.Gain | null>(null);
   const envelopeRef = useRef<Tone.Envelope | null>(null);
+  const leftOscRef = useRef<Tone.Oscillator | null>(null);
+  const rightOscRef = useRef<Tone.Oscillator | null>(null);
 
   // Setup synth engine
   useEffect(() => {
@@ -23,9 +26,9 @@ export function useBinauralSynth() {
       attack: 1,
       decay: 0.1,
       sustain: 1.0,
-      release: 0.5,
+      release: 1,
     }).toDestination();
-    const gain = new Tone.Gain(volume).toDestination();
+    const gain = new Tone.Gain(volume).connect(envelope);
     const leftPan = new Tone.Panner(-1).connect(gain);
     const rightPan = new Tone.Panner(1).connect(gain);
 
@@ -49,11 +52,6 @@ export function useBinauralSynth() {
     gainRef.current = gain;
     envelopeRef.current = envelope;
 
-    if (isPlaying) {
-      leftOsc.start();
-      rightOsc.start();
-    }
-
     return () => {
       leftOsc.stop();
       rightOsc.stop();
@@ -69,12 +67,19 @@ export function useBinauralSynth() {
   // Toggle playback
   useEffect(() => {
     if (isPlaying) {
-      Tone.start(); // Ensures audio context is started
       leftOscRef.current?.start();
       rightOscRef.current?.start();
+      envelopeRef.current?.triggerAttack();
     } else {
-      leftOscRef.current?.stop();
-      rightOscRef.current?.stop();
+      envelopeRef.current?.triggerRelease();
+
+      const releaseTime = envelopeRef.current?.release || 0.1;
+
+      // Stop oscillators *after* the release phase
+      Tone.getTransport().scheduleOnce(() => {
+        leftOscRef.current?.stop();
+        rightOscRef.current?.stop();
+      }, `+${releaseTime}`);
     }
   }, [isPlaying]);
 
