@@ -16,10 +16,10 @@ export default function Page() {
       className={`${roboto.className} relative bg-gradient-to-b from-primary-900 to-[#49569f]`}
     >
       <BackgroundVideo />
-      <div className="relative grid grid-cols-12 z-10">
+      <div className="relative flex xl:flex-row z-10 flex-col">
         <SynthStoreProvider>
-          <Menu className="sticky top-0 col-span-2 shadow-md" />
-          <Synth className="col-span-10 shadow-xl" />
+          <Menu className="xl:sticky xl:top-0 col-span-2 shadow-md flex-2/12" />
+          <Synth className="flex-10/12 shadow-xl" />
         </SynthStoreProvider>
       </div>
     </main>
