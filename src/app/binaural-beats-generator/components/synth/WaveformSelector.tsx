@@ -49,15 +49,13 @@ export default function WaveformSelector({
   }
 
   return (
-    <section
-      className={clsx("synth-module flex flex-col gap-6 min-w-2xs", className)}
-    >
+    <section className={clsx("synth-module flex flex-col gap-6", className)}>
       <IconHeader Icon={Waves} variant="MEDIUM">
         Waveform
       </IconHeader>
-      <div className="flex gap-3 self-center">
+      <div className="flex gap-3 self-center 2xl:flex-row flex-col">
         <button
-          className="hover:cursor-pointer active:scale-95"
+          className="hover:cursor-pointer active:scale-95 hidden 2xl:block"
           onClick={() => handleClick("LEFT")}
         >
           <LucideChevronLeft className="text-primary-50 p-1.5 bg-primary-800 border border-primary-700 rounded-full size-8" />
@@ -70,11 +68,27 @@ export default function WaveformSelector({
           />
         </div>
         <button
-          className="hover:cursor-pointer active:scale-95"
+          className="hover:cursor-pointer active:scale-95 hidden 2xl:block"
           onClick={() => handleClick("RIGHT")}
         >
           <LucideChevronRight className="text-primary-50 p-1.5 bg-primary-800 border border-primary-700 rounded-full size-8" />
         </button>
+
+        {/* Smaller Screen Buttons */}
+        <div className="2xl:hidden justify-around flex">
+          <button
+            className="hover:cursor-pointer active:scale-95"
+            onClick={() => handleClick("LEFT")}
+          >
+            <LucideChevronLeft className="text-primary-50 p-1.5 bg-primary-800 border border-primary-700 rounded-full size-8" />
+          </button>
+          <button
+            className="hover:cursor-pointer active:scale-95"
+            onClick={() => handleClick("RIGHT")}
+          >
+            <LucideChevronRight className="text-primary-50 p-1.5 bg-primary-800 border border-primary-700 rounded-full size-8" />
+          </button>
+        </div>
       </div>
     </section>
   );
