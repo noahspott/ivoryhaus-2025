@@ -1,5 +1,5 @@
 export enum Waveform {
-  Sine = "SINE",
-  Triangle = "TRIANGLE",
-  Square = "SQUARE",
+  Sine = "sine",
+  Triangle = "triangle",
+  Square = "square",
 }

@@ -18,7 +18,7 @@ export default function Page() {
       <BackgroundVideo />
       <div className="relative grid grid-cols-12 z-10">
         <SynthStoreProvider>
-          <Menu className="col-span-2 shadow-md" />
+          <Menu className="sticky top-0 col-span-2 shadow-md" />
           <Synth className="col-span-10 shadow-xl" />
         </SynthStoreProvider>
       </div>

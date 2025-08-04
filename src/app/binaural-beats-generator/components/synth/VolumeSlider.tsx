@@ -13,19 +13,18 @@ const SCROLLABLE_TRACK_WIDTH = TRACK_WIDTH - KNOB_WIDTH;
 export default function VolumeSlider() {
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const volume = useSynthStore((state) => state.volume);
   const updateVolume = useSynthStore((state) => state.updateVolume);
-
+  const volume = useSynthStore((state) => state.volume);
   const motionVolume = useMotionValue(volume);
+  const knobPosition = useTransform(
+    motionVolume,
+    [0, 1],
+    [0, SCROLLABLE_TRACK_WIDTH]
+  );
 
-  const x = useTransform(motionVolume, [0, 1], [0, SCROLLABLE_TRACK_WIDTH]);
-
-  // Updates SynthStore
   useEffect(() => {
     const unsubscribe = motionVolume.on("change", (latest) => {
-      const normalized = latest / SCROLLABLE_TRACK_WIDTH;
-      const clamped = Math.max(0, Math.min(1, normalized));
-      updateVolume(clamped);
+      updateVolume(latest);
     });
     return () => unsubscribe();
   }, [motionVolume, updateVolume]);
@@ -43,30 +42,25 @@ export default function VolumeSlider() {
     }
 
     const x = clientX - track.left;
-    const percent = (x / track.width) * SCROLLABLE_TRACK_WIDTH;
-    const clamped = Math.max(0, Math.min(SCROLLABLE_TRACK_WIDTH, percent));
+    const percent = x / track.width;
+    const clamped = Math.max(0, Math.min(1, percent));
 
     motionVolume.set(clamped);
   }
 
-  // function handleKeyVolumeChange(event: React.KeyboardEvent<HTMLDivElement>) {
-  //   const track = trackRef.current?.getBoundingClientRect();
-  //   if (!track) return;
+  function handleKeyVolumeChange(event: React.KeyboardEvent<HTMLDivElement>) {
+    const stepAmount = 0.1;
+    let change = 0;
 
-  //   const stepAmount = 20;
-  //   let division = Math.round(SCROLLABLE_TRACK_WIDTH / stepAmount);
+    if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+      change = -stepAmount;
+    } else if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+      change = stepAmount;
+    }
 
-  //   if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
-  //     division = -division;
-  //   }
-
-  //   motionVolume.set(
-  //     Math.max(
-  //       0,
-  //       Math.min(motionVolume.get() + division, SCROLLABLE_TRACK_WIDTH)
-  //     )
-  //   );
-  // }
+    const newValue = Math.max(0, Math.min(1, motionVolume.get() + change));
+    motionVolume.set(newValue);
+  }
 
   return (
     <div ref={trackRef} className="relative">
@@ -84,22 +78,22 @@ export default function VolumeSlider() {
         dragMomentum={false}
         dragConstraints={trackRef}
         style={{
-          x,
+          x: knobPosition.get() - KNOB_WIDTH / 2,
           width: KNOB_WIDTH,
           height: KNOB_WIDTH,
         }}
         onDrag={(e) => {
           handleDrag(e);
         }}
-        // onKeyDown={(e) => {
-        //   handleKeyVolumeChange(e);
-        // }}
+        onKeyDown={(e) => {
+          handleKeyVolumeChange(e);
+        }}
       />
       <motion.div
         id="volume-slider-top"
         className="absolute top-0 z-10 left-0 bg-primary-50 rounded-full h-0.5"
         style={{
-          width: x,
+          width: knobPosition.get(),
         }}
       />
       <div
